@@ -163,34 +163,58 @@ export async function updateWidget(
   id: string,
   updates: Partial<WidgetWithState>,
 ): Promise<void> {
-  // Get current widget to preserve non-updated values
-  const widgetsResult = await App.GetWidgets();
-  const widgets = JSON.parse(widgetsResult);
-  const currentWidget = widgets.find((w: any) => w.id === id);
+  try {
+    console.log("[DB] updateWidget called:", id, updates);
 
-  if (!currentWidget) {
-    throw new Error(`Widget ${id} not found`);
-  }
+    // Get current widget to preserve non-updated values
+    const widgetsResult = await App.GetWidgets();
+    const widgets = JSON.parse(widgetsResult);
+    const currentWidget = widgets.find((w: any) => w.id === id);
 
-  const result = await App.UpdateWidget(
-    id,
-    updates.name ?? currentWidget.name,
-    updates.js ?? currentWidget.js_code,
-    updates.css ?? currentWidget.css_code,
-  );
-  const response = JSON.parse(result);
+    if (!currentWidget) {
+      throw new Error(`Widget ${id} not found`);
+    }
 
-  if (response.error) {
-    throw new Error(response.error);
+    console.log("[DB] Current widget:", currentWidget);
+
+    const result = await App.UpdateWidget(
+      id,
+      updates.name ?? currentWidget.name,
+      updates.js ?? currentWidget.js_code,
+      updates.css ?? currentWidget.css_code,
+    );
+
+    console.log("[DB] UpdateWidget result:", result);
+    const response = JSON.parse(result);
+
+    if (response.error) {
+      console.error("[DB] UpdateWidget error:", response.error);
+      throw new Error(response.error);
+    }
+
+    console.log("[DB] Widget updated successfully");
+  } catch (error) {
+    console.error("[DB] updateWidget failed:", error);
+    throw error;
   }
 }
 
 export async function deleteWidget(id: string): Promise<void> {
-  const result = await App.DeleteWidget(id);
-  const response = JSON.parse(result);
+  try {
+    console.log("[DB] deleteWidget called:", id);
+    const result = await App.DeleteWidget(id);
+    console.log("[DB] DeleteWidget result:", result);
+    const response = JSON.parse(result);
 
-  if (response.error) {
-    throw new Error(response.error);
+    if (response.error) {
+      console.error("[DB] DeleteWidget error:", response.error);
+      throw new Error(response.error);
+    }
+
+    console.log("[DB] Widget deleted successfully");
+  } catch (error) {
+    console.error("[DB] deleteWidget failed:", error);
+    throw error;
   }
 }
 
