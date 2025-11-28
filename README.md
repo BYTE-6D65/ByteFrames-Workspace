@@ -1,5 +1,10 @@
 # BYTE Frames
 
+> ⚠️ **UNDER ACTIVE DEVELOPMENT** ⚠️  
+> This project is currently being ported to a native desktop application using Wails.  
+> Features may be incomplete, APIs may change, and bugs are expected.  
+> **Not recommended for production use yet.**
+
 **Native desktop overlay widget manager for OBS Studio**
 
 A powerful, native macOS application built with Wails that allows you to create, manage, and preview custom overlay widgets for OBS Studio. Design dynamic overlays with JavaScript and CSS, organize them into scenes, and preview them with OBS VirtualCam/NDI feeds.
@@ -8,6 +13,7 @@ A powerful, native macOS application built with Wails that allows you to create,
 ![Go Version](https://img.shields.io/badge/go-1.21+-blue)
 ![Wails](https://img.shields.io/badge/wails-v2.11.0-blue)
 ![React](https://img.shields.io/badge/react-19.2.0-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
 
 ## Features
 
@@ -283,7 +289,7 @@ Contributions welcome! Please:
 
 ## License
 
-[Your License Here]
+MIT License - see [LICENSE](LICENSE) file for details
 
 ## Acknowledgments
 
